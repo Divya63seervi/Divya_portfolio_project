@@ -5,11 +5,11 @@ document.getElementById("feedbackForm").addEventListener("submit", function(even
     const emailValue = document.getElementById("femail").value;
     const messageValue = document.getElementById("fmsg").value;
 
-    fetch("https://divya-portfolio-project1.onrender.com/contact") {
+    fetch("https://divya-portfolio-project1.onrender.com/feedback",{
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: nameValue, email: emailValue, message: messageValue })
-    })
+    }) 
     .then(res => res.text())
     .then(data => alert(data))
     .catch(err => { console.log(err); alert("Error ❌"); });

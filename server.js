@@ -10,7 +10,28 @@ const app = express();
 
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json());const feedbackSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  message: String
+});
+
+const Feedback = mongoose.model("Feedback", feedbackSchema);
+
+// ✅ POST ROUTE
+app.post("/feedback", async (req, res) => {
+  console.log("DATA RECEIVED:", req.body);
+
+  try {
+    const newFeedback = new Feedback(req.body);
+    await newFeedback.save();
+
+    res.send("Saved ✅");
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Error saving data");
+  }
+});
 
 app.get("/", (req, res) => {
   res.send("Server is running");
